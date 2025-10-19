@@ -18,7 +18,7 @@ export default function Login()
                 <p>Password</p>
                 <input type="password" placeholder="password"/>
             </div>
-            <button>
+            <button id='submit-btn' className="card-button-primary">
                 <h6>
                     Submit
                 </h6>
