@@ -7,35 +7,34 @@
 }
 
 /* --- Hero and login styles (moved from hero.css) --- */
+
+/* Hero layout: two columns on desktop, single column on small screens */
 #hero {
   display: grid;
-  grid-template-columns: repeat(1,minmax(0,1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 2rem;
   align-items: center;
   padding: 3rem;
 }
 
-#hero>div{
-  padding: fixed;
+#hero > div {
+  padding: 0;
 }
 
 .hero-img {
-  position: fixed;
-  top:0;
-  left:0;
+  position: relative;
   width: 100%;
-  height: 100%;
-  z-index: -1;
+  height: auto;
+  z-index: 0;
   overflow: hidden;
 }
 
 .hero-img img {
   width: 100%;
   height: auto;
-  left:0 px;
   object-fit: cover;
   border-radius: 12px;
-  position: absolute;
+  display: block;
 }
 
 .hero-login {
@@ -76,7 +75,7 @@
 
 /* Login / form specific styles */
 .login-container {
-  background: rgba(0, 0, 0, 0.4); /* subtle translucent card */
+  background: rgba(0, 0, 0, 0.45); /* subtle translucent card */
   backdrop-filter: blur(6px);
   padding: 1.5rem 1.25rem;
   border-radius: 12px;
@@ -132,15 +131,15 @@
   width: 100%;
   padding: 0.6rem 0.8rem;
   border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255);
-  background: rgb(0, 0, 0);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255,255,255,0.02);
   margin-top: 0.4rem;
 }
 
 
 
 .secondary-btns-container {
-  display:grid;
+  display: grid;
   grid-template-columns: repeat(2, minmax(0,1fr));
   gap: 1rem;
 }
@@ -171,10 +170,254 @@
   max-width: unset;
   display: grid;
   place-items: center;
-  padding: 0.5 rem;
   grid-column: 1 / -1;
   padding: 0.6rem 1rem;
   border-radius: 8px;
   border: none;
   background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+}
+
+/* Notes layout: sidebar + content */
+#notes{
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(1,minmax(0,1fr));
+  flex:1;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  gap: 0;
+  min-height: calc(100vh - 0px);
+}
+
+@media (max-width: 900px) {
+  #notes {
+    grid-template-columns: 1fr;
+  }
+}
+
+.nav, .notes-container, .mdx-container {
+  padding: 2rem;
+}
+
+/* mobile hide/show behavior for sidebar */
+.nav.hidden-nav {
+  transform: translateX(-100%);
+  transition: transform 200ms ease-in-out;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  z-index: 40;
+  background: var(--background-primary);
+}
+
+/* on larger screens, keep nav visible regardless of the class */
+@media(min-width: 900px) {
+  .nav.hidden-nav {
+    transform: none;
+    position: relative;
+  }
+}
+
+/* Top bar arrangement */
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  width: 100%;
+  gap: 1rem;
+}
+
+.topbar .left,
+.topbar .right{
+  display:flex;
+  align-items:center;
+  gap: 0.75rem;
+}
+
+/* Close button inside nav (visible on mobile) */
+.nav .nav-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1rem;
+}
+
+.close-nav{
+  display:none;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 6px;
+  padding: 0.25rem 0.5rem;
+}
+
+@media (max-width: 900px) {
+  .close-nav{ display: inline-flex; }
+}
+
+.notes-btns{
+  display:flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.notes-btns button{
+ display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.nav{
+  border-right: 1px solid var(--border-primary);
+  flex-direction: column;
+  display: flex;
+  gap: 1rem;
+  height: 100vh;
+  position: relative;
+  width: 260px;
+  background: var(--background-primary);
+  z-index: 10;
+  overflow: auto;
+
+}
+
+.hidden-nav{
+  display: none !important;
+}
+
+.nav button{
+  width: 100%;
+  max-width: unset;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.nav .notes-list{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow-y: auto;
+}
+
+.notes-list button{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.25rem !important;
+  text-transform: capitalize;
+  overflow: hidden;
+  padding: 0.5rem;
+  min-height: fit-content;
+}
+
+.notes-list button p{
+  width: 100%;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+}
+
+.notes-container,.mdx-container{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+  height: 100%;
+}
+
+.notes-container textarea{
+  flex: 1;
+  max-height: unset;
+  max-width: unset;
+  border: none;
+  resize: none;
+  background: none;
+}
+
+.full-line{
+  height: 1px;
+  background: var(--color-link-transparent);
+  width: 100%;
+}
+
+.list-btn{
+  position: relative;
+
+}
+
+.delete-btn{
+  position: absolute;
+  right:1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  pointer-events: none;
+  transition-duration: 200ms;
+}
+
+.list-btn:hover .delete-btn{
+  opacity: 1;
+  pointer-events: all;
+}
+
+.list-btn:hover .delete-btn:hover{
+  color: var(--color-accent);
+}
+
+article>div{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+}
+
+@media (min-width: 768px){
+  #notes{
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  flex: 1;
+  }
+
+  .nav{
+    position: relative;
+    max-width: unset;
+  }
+  
+  .hidden-nav{
+    display: flex !important;
+  }
+
+  .menu{
+    display: none !important
+  }
+
+  .notes-container,
+  .mdx-container{
+    grid-column: span 2;
+  }
+}
+
+@media (min-width: 1024px){
+  #hero{
+    grid-template-columns: repeat(3,minmax(0,1fr));
+  }
+  .hero-img{
+    grid-column: span 2/ span 2;
+  }
+
+  #notes{
+    grid-template-columns: repeat(4,minmax(0,1fr));
+  }
+
+  .notes-container,
+  .mdx-container{
+    grid-column: span 3;  
+  }
 }
