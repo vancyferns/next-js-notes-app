@@ -4,6 +4,7 @@ import TopNav from './TopNav'
 import Markdown from 'markdown-to-jsx';
 
 export default function MDX(props) {
+  const {text}=props;
   const md=`(https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
@@ -31,7 +32,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
     <TopNav {...props}/>
     <article>
       <Markdown>
-        {md}
+        {text.trim()}
       </Markdown>
     </article>
     </section>

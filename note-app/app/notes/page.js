@@ -9,6 +9,7 @@ export default function NotesPage()
 {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [isViewer,setIsViewer]=useState(true);
+    const [text,setText]=useState("");
 
     function handleToggleViewer(){
         setIsViewer(!isViewer);
@@ -23,12 +24,12 @@ export default function NotesPage()
 
             <section className="content-area">
                 {!isViewer && (
-                    <Editor isViewer={isViewer} onToggleSidebar={toggleSidebar} handleToggleViewer={handleToggleViewer}/>
+                    <Editor isViewer={isViewer} setText={setText} text={text} onToggleSidebar={toggleSidebar} handleToggleViewer={handleToggleViewer}/>
                 )
 
                 }
                 
-                {isViewer && (<MDX handleToggleViewer={handleToggleViewer} onToggleSidebar={toggleSidebar} />)}
+                {isViewer && (<MDX handleToggleViewer={handleToggleViewer}  text={text} onToggleSidebar={toggleSidebar} />)}
             </section>
 
         </main>
