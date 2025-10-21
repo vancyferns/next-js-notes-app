@@ -1,9 +1,14 @@
 export default function SideNav(props) {
   const { className = '', onToggleSidebar } = props;
   const notes=["First Note", "Second Note", "Third Note"];
+  const {showNav,setShowNav}=props;
+  // Prefer an explicit className prop (passed from page via sidebarOpen). If the
+  // parent didn't pass className, fall back to the showNav boolean.
+  const hasClassNameProp = Object.prototype.hasOwnProperty.call(props, 'className');
+  const visibilityClass = hasClassNameProp ? className : (showNav ? '' : 'hidden-nav');
   // className may be 'hidden-nav' from parent on mobile
   return (
-    <section className={"nav " + className}>
+    <section className={"nav " + visibilityClass}>
       <div className="nav-header">
         <div>
           <h1 className="text-gradient">Notsify</h1>

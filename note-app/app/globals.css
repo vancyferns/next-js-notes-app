@@ -284,9 +284,8 @@
 
 }
 
-.hidden-nav{
-  display: none !important;
-}
+/* .hidden-nav styles intentionally omitted here. Visibility is controlled by
+  the .nav.hidden-nav transform rule above and the media query for large screens. */
 
 .nav button{
   width: 100%;

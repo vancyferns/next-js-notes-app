@@ -1,7 +1,7 @@
 "use client";
 
 export default function TopNav(props) {
-        const {isViewer, onToggleSidebar,handleToggleViewer} = props;
+        const {isViewer, onToggleSidebar,handleToggleViewer,handleToggleMenu} = props;
     return (
         <>
         <div className="topbar">

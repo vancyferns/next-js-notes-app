@@ -10,6 +10,8 @@ export default function NotesPage()
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [isViewer,setIsViewer]=useState(true);
     const [text,setText]=useState("");
+    const [showNav,setShowNav]=useState(false);
+
 
     function handleToggleViewer(){
         setIsViewer(!isViewer);
@@ -17,19 +19,24 @@ export default function NotesPage()
     function toggleSidebar(){
         setSidebarOpen(v=>!v);
     }
+    
+    function handleToggleMenu(){
+        setShowNav(!showNav);
+    }
 
     return (
         <main id="notes">
-            <SideNav className={sidebarOpen?"":"hidden-nav"} onToggleSidebar={toggleSidebar} />
+            <SideNav className={sidebarOpen?"":"hidden-nav"} onToggleSidebar={toggleSidebar} showNav=
+            {showNav} setShowNav={setShowNav} />
 
             <section className="content-area">
                 {!isViewer && (
-                    <Editor isViewer={isViewer} setText={setText} text={text} onToggleSidebar={toggleSidebar} handleToggleViewer={handleToggleViewer}/>
+                    <Editor isViewer={isViewer} setText={setText} text={text} onToggleSidebar={toggleSidebar} handleToggleViewer={handleToggleViewer} handleToggleMenu={handleToggleMenu}/>
                 )
 
                 }
                 
-                {isViewer && (<MDX handleToggleViewer={handleToggleViewer}  text={text} onToggleSidebar={toggleSidebar} />)}
+                {isViewer && (<MDX handleToggleViewer={handleToggleViewer}  text={text} onToggleSidebar={toggleSidebar} showNav={setShowNav} handleToggleMenu={handleToggleMenu}/>)}
             </section>
 
         </main>
